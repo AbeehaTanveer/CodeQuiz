@@ -1,0 +1,100 @@
+
+const quizDB=[
+{
+Question: " Q1: Which type of JavaScript language is ___?",
+a:"Object-Oriented",
+b:"Object-Based",
+c:"Assembly-language",
+d:"High-level",
+ans:"ans1"
+},
+{
+
+Question: " Q2: Which of the following keywords is used to define a variable in Javascript? ",
+a:"var",
+b:"let",
+c:"Both a&b",
+d:"None",
+ans:"ans3"
+},
+{
+    Question: " Q3: How can a datatype be declared to be a constant type?",
+    a:"const",
+    b:"contant",
+    c:"let",
+    d:"var",
+ans:"ans1"
+    },
+    {
+
+        Question: " Q4: What keyword is used to check whether a given property is valid or not?",
+        a:"in",
+        b:"is",
+        c:"exit",
+        d:"None",
+        ans:"ans1"
+        },
+        
+    ];
+
+
+
+    const Question=document.querySelector('.Question');
+    const option1=document.querySelector('#option1');
+    const option2=document.querySelector('#option2');
+    const option3=document.querySelector('#option3');
+    const option4=document.querySelector('#option4');
+    const Submit=document.querySelector('#Submit');
+    const answers=document.querySelectorAll('.answer');
+    const showScore=document.querySelector('#showScore')
+    
+    let questionCount=0;
+    let  score=0;
+
+const loadQuestion=()=>{
+
+    const    questionlist=quizDB[questionCount]
+    Question.innerText = questionlist.Question;
+
+
+    option1.innerText= questionlist.a;
+    option2.innerText= questionlist.b;
+    option3.innerText= questionlist.c;
+    option4.innerText= questionlist.d;
+
+}
+loadQuestion();
+
+
+
+const getCheckedAnswer= () =>{
+    let answer;
+
+    answers.forEach((curAnsElem)=>{
+        if(curAnsElem.checked ){
+            answer=curAnsElem.id;
+        }
+  
+    });
+    return answer;
+};
+ 
+Submit.addEventListener('click', () => {
+const checkedAnswer = getCheckedAnswer();
+console.log(checkedAnswer);
+if(checkedAnswer===quizDB[questionCount].ans){
+    score++;
+};
+questionCount++;
+
+if(questionCount<quizDB.length){
+    loadQuestion();
+}
+else{
+    showScore.innerHTML=`<h3> you have score${score}/${quizDB.length} 🎉 </h3> 
+    <button class="btn" onclick="location.reload()"> play again </button>`;
+
+     showScore.classList.remove('scoreArea') ;
+}
+
+});
